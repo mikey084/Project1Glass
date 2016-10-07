@@ -55,6 +55,7 @@ window.onload = function(){
 	        obj.location = elem._embedded.venues[0].location;
           obj.dates = elem.dates.start.localDate;
 	        obj.time = elem.dates.start.localTime;
+          obj.city = elem._embedded.venues[0].city.name;
           return obj;
       });
     globalObj = objArray;
@@ -63,6 +64,9 @@ window.onload = function(){
       var tr = $('<tr>');
       var td = $('<td>').text(objArray[i].name);
       var td2 = $('<td>').text(objArray[i].dates);
+      if (objArray[i].city){
+        var td5 = $('<td>').text(objArray[i].city);
+      }
         if (objArray[i].maxPrice && objArray[i].minPrice){
           var td3 = $('<td>').text('Max$' + objArray[i].maxPrice);
           var td4 = $('<td>').text('Min$' + objArray[i].minPrice);
@@ -82,6 +86,9 @@ window.onload = function(){
         var trow = tr.append(td).append(td2);
         if (td3 && td4){
         trow.append(td3).append(td4);
+        }
+        if (td5){
+          trow.append(td5);
         }
         trow.append(buttonTest).on('click', markerArray[i]);
         $('.artisttable').append(trow);
